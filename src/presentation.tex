@@ -1,0 +1,370 @@
+\documentclass[10pt, compress, aspectratio=169]{beamer}
+
+\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}
+
+\usepackage{sourcecodepro}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage[scale=2]{ccicons}
+\usepackage{url}
+\usepackage{relsize}
+\usepackage{wasysym}
+\usepackage{multirow}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\definecolor{Base}{HTML}{191F26}
+\definecolor{Accent}{HTML}{157FFF}
+
+\setbeamercolor{alerted text}{fg=Accent}
+\setbeamercolor{frametitle}{bg=Base}
+
+\setsansfont[BoldFont={Source Sans Pro Semibold},
+              Numbers={OldStyle}]{Source Sans Pro}
+
+\lstset{ %
+  backgroundcolor={},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=true,
+  breaklines=true,
+  captionpos=n,
+  commentstyle=\color{Accent},
+  escapeinside={\%*}{*)},
+  extendedchars=true,
+  frame=n,
+  keywordstyle=\color{Accent},
+  language=C++,
+  rulecolor=\color{black},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stepnumber=2,
+  stringstyle=\color{gray},
+  tabsize=2,
+  keywords={thrust,plus,device_vector, copy,transform,begin,end, copyin,
+  copyout, acc, \_\_global\_\_, void, int, float, main, threadIdx, blockIdx,
+  blockDim, if, else, malloc, NULL, cudaMalloc, cudaMemcpy, cudaSuccess,
+  cudaGetLastError, cudaDeviceSynchronize, cudaFree, cudaMemcpyDeviceToHost,
+  cudaMemcpyHostToDevice, const, data, independent, kernels, loop,
+  fprintf, stderr, cudaGetErrorString, EXIT_FAILURE, for, dim3},
+  otherkeywords={::, \#pragma, \#include, <<<,>>>, \&, \*, +, -, /, [, ], >, <}
+}
+
+\renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
+
+\graphicspath{{../img/}}
+
+\title{\textit{OpenMP} or \textit{Pthreads}: \\ Which is Better for Beginners?}
+\author{\footnotesize Pedro Bruel {\scriptsize (\emph{phrb@ime.usp.br})} \\
+\footnotesize Paulo Meirelles {\scriptsize (\emph{paulormm@ime.usp.br})} \\
+\footnotesize Raphael Cobe {\scriptsize (\emph{rmcobe@ncc.unesp.br})} \\
+\footnotesize Alfredo Goldman {\scriptsize (\emph{gold@ime.usp.br})}}
+\institute{\includegraphics[height=2cm]{imelogo}\\[0.2cm] Institute of Mathematics and Statistics \\ University of São Paulo}
+\date{\scriptsize PLATEAU, October 23, 2017}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+%\subsection{About}
+%
+%\begin{frame}
+%    \frametitle{About}
+%    \begin{columns}[T,onlytextwidth]
+%        \column{0.5\textwidth}
+%        \begin{center}
+%            \includegraphics[width=.45\textwidth]{pedro}
+%
+%            Pedro Bruel \\
+%            \emph{\alert{phrb}@ime.usp.br} \\[.3cm]
+%            \url{www.ime.usp.br/~phrb} \\
+%            \url{github.com/phrb} \\
+%        \end{center}
+%
+%        \column{0.5\textwidth}
+%        \begin{center}
+%            \includegraphics[width=.4\textwidth]{alfredo}
+%
+%            Alfredo Goldman \\
+%            \emph{\alert{gold}@ime.usp.br} \\[.3cm]
+%            \url{www.ime.usp.br/~gold} \\
+%        \end{center}
+%    \end{columns}
+%\end{frame}
+
+\subsection{Index}
+
+\begin{frame}
+    \frametitle{Index}
+    \setbeamertemplate{section in toc}[sections numbered]
+    \tableofcontents[hideallsubsections]
+\end{frame}
+
+\begin{frame}
+    \frametitle{Slides}
+    \begin{center}
+        \includegraphics[width=.18\textwidth]{github}
+    \end{center}
+    The slides and all source code are hosted at \alert{GitHub}:
+
+    \begin{itemize}
+        \item \url{github.com/phrb/plateau-2017-which}
+    \end{itemize}
+\end{frame}
+
+\section{The Course}
+
+\begin{frame}
+    \frametitle{Course}
+    The Concurrent, Parallel and Distributed Computing course:
+
+    \begin{itemize}
+        \item Undergraduate \& graduate students in the same class
+        \item More cousework for graduate students
+    \end{itemize}
+
+    The objective is to teach:
+
+    \begin{itemize}
+        \item Core principles of concurrent, parallel and distributed programming
+        \item Hardware fundamentals: Memory, GPUs, FPGAs
+        \item Parallel and distributed programming tools: \textit{MPI}, \textit{OpenMP}, \textit{Pthreads},
+            \textit{CUDA}, $\dots$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Classes}
+    The classes:
+
+    \begin{itemize}
+        \item In Portuguese
+        \item Professor (Alfredo) \& TA (Pedro)
+        \item Expositions, practical examples \& programming assignments
+        \item Few non-brazilian students: Iran \& Latin America
+    \end{itemize}
+
+    With consent from the students, we
+
+    \begin{itemize}
+        \item Recorded the classes
+        \item Made them available online:
+            \url{https://phrb.github.io/MAC5742-0219/aulas.html}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Students}
+    \begin{center}
+        \includegraphics[width=.8\textwidth]{students}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Student Background}
+    \begin{center}
+        \includegraphics[width=0.78\columnwidth]{background_questions}
+    \end{center}
+\end{frame}
+
+\section{Programming Assignment}
+
+\begin{frame}
+    \frametitle{Assignments: The Mandelbrot Set}
+    First assignment:
+
+    \begin{itemize}
+        \item Parallelize a sequential computation of the Mandelbrot Set
+        \item Write two versions, using \textit{OpenMP} and \textit{Pthreads}
+        \item Compare the performance of the three implementations
+    \end{itemize}
+
+    \textit{OpenMP}:
+    \begin{itemize}
+        \item Based on compiler directives
+        \item No explicit management required
+        \item Usually considered easier than \textit{Pthreads}
+    \end{itemize}
+
+    \textit{Pthreads}:
+    \begin{itemize}
+        \item Low-level function calls
+        \item Explicit management required
+        \item Usually considered harder than \textit{OpenMP}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \begin{columns}[T,onlytextwidth]
+    \frametitle{Assignments: The Mandelbrot Set}
+        \column{0.6\textwidth}
+        \begin{center}
+            \includegraphics[width=.85\textwidth]{mandelbrot}
+        \end{center}
+
+        \column{0.4\textwidth}
+        \begin{center}
+            \begin{lstlisting}[language=C, basicstyle=\ttfamily\scriptsize, numbers=left,
+                   frame=no, showspaces=false, showstringspaces=false,
+                   numberstyle=\tiny,
+                   xleftmargin=0.5cm,
+                   keywords={%
+                       DATATYPE, pthread_t, pthread_create,
+                       pthread_join, task_function, NULL, int, main,
+                       void, printf, return, pthread_mutex_t,
+                       pthread_attr_t, pthread_attr_init,
+                       MAX_THREADS, SIZE, char, struct, malloc,
+                       MIN, pthread_mutex_lock, pthread_mutex_unlock,
+                       pthread_exit, from, to, and, for%
+                       },
+                   otherkeywords={::, \#pragma, \#include, <<<,>>>, \&, \*, +, -, /, [, ], >, <}
+                   ]
+z = 0;
+for(x from 0 to x_max - 1) {
+  /* Independent iterations */
+  for(y from 0 to y_max - 1) {
+    /* Independent iterations */
+    for (iteration from 0 to iteration_max,
+         and f_c(z) < limit) {
+      /* Iterations depend on
+      previous values of z */
+      z = f_c(z);
+    }
+  }
+}
+            \end{lstlisting}
+        \end{center}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Other Assignments}
+    Other assignments:
+
+    \begin{itemize}
+        \item Parallelize crypto algorithms using CUDA
+        \item Distributed Mandelbrot using the Google Compute Engine
+    \end{itemize}
+\end{frame}
+
+\section{Questionnaire \& Responses}
+
+\begin{frame}
+    \frametitle{Research Questions}
+    In our first study students helped us show that OpenMP is not as easy as it
+    appears.
+
+    Now, we wanted to know:
+
+    \begin{description}
+        \item[RQ1:] \textit{According to the students' perception, which API was
+            easier to learn and use?}
+        \item[RQ2:] \textit{With which API did the students improve performance the
+            most?}
+        \item[RQ3:] \textit{Did the students' performance improvements match their
+            perception?}
+    \end{description}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Questionnaire}
+    Measure the students' subjective perceptions of each API:
+
+    \begin{itemize}
+        \item Independently
+        \item Relative to each other
+    \end{itemize}
+
+    We had approval from our University's Ethics Board, and consent from
+    individual students
+\end{frame}
+
+\begin{frame}
+    \frametitle{Independent Questions}
+    \begin{columns}[T,onlytextwidth]
+        \column{0.4\textwidth}
+        \begin{table}
+            \centering
+            \begin{tabular}{@{}p{0.7\columnwidth}p{0.1\columnwidth}p{0.05\columnwidth}@{}}
+                \toprule
+                \multicolumn{2}{c}{\scriptsize{It is easy to$\dots$}} & \textnumero \\ \midrule
+                \multirow{2}{*}{\parbox{0.7\columnwidth}{\scriptsize{Parallelize loops with independent iterations using:}}} & \scriptsize{OpenMP} & $(1)$ \\
+                & \scriptsize{Pthreads} & $(2)$ \\
+                \addlinespace{}
+                \multirow{2}{*}{\parbox{0.7\columnwidth}{\scriptsize{Parallelize nested loops with independent iterations using:}}} & \scriptsize{OpenMP} & $(3)$ \\
+                &  \scriptsize{Pthreads} & $(4)$ \\
+                \addlinespace{}
+                \multirow{2}{*}{\parbox{0.7\columnwidth}{\scriptsize{Improve the performance of sequential code using:}}} & \scriptsize{OpenMP} & $(5)$  \\
+                &  \scriptsize{Pthreads} & $(6)$ \\ \bottomrule
+            \end{tabular}
+        \end{table}
+
+        \column{0.6\textwidth}
+        \begin{center}
+            \includegraphics[width=0.85\columnwidth]{likert_questions}
+        \end{center}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Comparison Questions}
+    \begin{columns}[T,onlytextwidth]
+        \column{0.4\textwidth}
+        \begin{table}
+            \centering
+            \begin{tabular}{@{}p{0.9\columnwidth}p{0.08\columnwidth}@{}}
+                \toprule
+                \multicolumn{1}{c}{\scriptsize{Which technology$\dots$}} & \textnumero \\ \midrule
+                \scriptsize{Was more difficult to learn?} & $(7)$ \\
+                \scriptsize{Was simpler to use?} & $(8)$ \\
+                \scriptsize{Was easier to use?} & $(9)$ \\
+                \scriptsize{Was easier to use for parallelizing loops with independent iterations?} & $(10)$ \\
+                \scriptsize{Was easier to use for parallelizing nested loops with independent iterations?} & $(11)$  \\
+                \scriptsize{Was easier to use for improving the performance of a sequential program?} & $(12)$  \\
+                \scriptsize{Had the best performance on your assignment?} & $(13)$ \\ \bottomrule
+            \end{tabular}
+        \end{table}
+
+        \column{0.6\textwidth}
+        \begin{center}
+            \includegraphics[width=0.85\columnwidth]{comparisons}
+        \end{center}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Conclusion}
+    We conclude that:
+
+    \begin{itemize}
+        \item The students' perceptions did not match their performance
+        \item \textit{OpenMP} is still not as easy as it appears
+        \item Students are capable of achieving better performance with
+            lower-level parallel programming APIs
+    \end{itemize}
+\end{frame}
+
+\section{Threats to Validity}
+
+\begin{frame}
+    \frametitle{Threats to Validity}
+    Threats to validity include:
+
+    \begin{itemize}
+        \item Study performed in a single instance of the course
+        \item No control group or separate groups
+        \item Subjectivity of questionnaire and responses
+    \end{itemize}
+
+    We will continue this research and seek to eliminate these threats
+\end{frame}
+
+\maketitle
+
+\end{document}
