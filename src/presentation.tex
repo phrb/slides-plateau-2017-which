@@ -63,14 +63,14 @@
 \footnotesize Paulo Meirelles {\scriptsize (\emph{paulormm@ime.usp.br})} \\
 \footnotesize Raphael Cobe {\scriptsize (\emph{rmcobe@ncc.unesp.br})} \\
 \footnotesize Alfredo Goldman {\scriptsize (\emph{gold@ime.usp.br})}}
-\institute{\includegraphics[height=2cm]{imelogo}\\[0.2cm] Institute of Mathematics and Statistics \\ University of São Paulo}
+\institute{\includegraphics[height=2cm]{imelogo}\\[0.2cm] \emph{Institute of Mathematics and Statistics} \\ \emph{University of São Paulo}}
 \date{\scriptsize PLATEAU, October 23, 2017}
 
 \begin{document}
 
 \maketitle
 
-\section{Introduction}
+\section*{Introduction}
 
 %\subsection{About}
 %
@@ -98,10 +98,10 @@
 %    \end{columns}
 %\end{frame}
 
-\subsection{Index}
+\subsection*{Outline}
 
 \begin{frame}
-    \frametitle{Index}
+    \frametitle{Outline}
     \setbeamertemplate{section in toc}[sections numbered]
     \tableofcontents[hideallsubsections]
 \end{frame}
@@ -109,11 +109,12 @@
 \begin{frame}
     \frametitle{Slides}
     \begin{center}
-        \includegraphics[width=.18\textwidth]{github}
+        \includegraphics[width=.15\textwidth]{github}
     \end{center}
-    The slides and all source code are hosted at \alert{GitHub}:
+    The slides, and all data and source code are hosted at \alert{GitHub}:
 
     \begin{itemize}
+        \item \url{github.com/phrb/slides-plateau-2017-which}
         \item \url{github.com/phrb/plateau-2017-which}
     \end{itemize}
 \end{frame}
@@ -121,34 +122,37 @@
 \section{The Course}
 
 \begin{frame}
-    \frametitle{Course}
+    \frametitle{The Course}
     The Concurrent, Parallel and Distributed Computing course:
 
     \begin{itemize}
-        \item Undergraduate \& graduate students in the same class
-        \item More cousework for graduate students
+        \item \alert{Undergraduate} \& \alert{graduate} students in the \alert{same class}
+        \item Promote \alert{interaction} between students
+        \item More coursework for graduate students
     \end{itemize}
 
     \pause
 
-    The objective is to teach:
+    The \alert{objective} is to teach:
 
     \begin{itemize}
-        \item Core principles of concurrent, parallel and distributed programming
-        \item Hardware fundamentals: Memory, GPUs, FPGAs
-        \item Parallel and distributed programming tools: \textit{MPI}, \textit{OpenMP}, \textit{Pthreads},
+        \item \alert{Core principles} of concurrent, parallel and distributed programming
+            \pause
+        \item \alert{Hardware fundamentals}: Memory, GPUs, FPGAs
+            \pause
+        \item Parallel and distributed \alert{programming tools}: \textit{MPI}, \textit{OpenMP}, \textit{Pthreads},
             \textit{CUDA}, $\dots$
     \end{itemize}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Classes}
+    \frametitle{The Classes}
     The classes:
 
     \begin{itemize}
-        \item In Portuguese
-        \item Professor (Alfredo) \& TA (Pedro)
-        \item Expositions, practical examples \& programming assignments
+        \item In \alert{Portuguese}
+        \item Professor (Alfredo) \& TA (\alert{Pedro})
+        \item Expositions, practical examples \& \alert{programming assignments}
         \item Few non-brazilian students: Iran \& Latin America
     \end{itemize}
 
@@ -179,16 +183,17 @@
     \end{center}
 \end{frame}
 
-\section{Programming Assignment}
+\section{Programming Assignments}
 
 \begin{frame}
-    \frametitle{Assignments: The Mandelbrot Set}
+    \frametitle{Programming Assignments: Computing the Mandelbrot Set}
     First assignment:
 
     \begin{itemize}
-        \item Parallelize a sequential computation of the Mandelbrot Set
-        \item Write two versions, using \textit{OpenMP} and \textit{Pthreads}
-        \item Compare the performance of the three implementations
+        \item \alert{Parallelize a sequential version} of the computation of the
+            Mandelbrot Set
+        \item \alert{Write two versions}, using \textit{OpenMP} and \textit{Pthreads}
+        \item \alert{Compare the performance} of the three code versions
     \end{itemize}
 
     \pause
@@ -197,7 +202,7 @@
     \begin{itemize}
         \item Based on compiler directives
         \item No explicit management required
-        \item Usually considered easier than \textit{Pthreads}
+        \item Usually \alert{considered easier} than \textit{Pthreads}
     \end{itemize}
 
     \pause
@@ -206,13 +211,13 @@
     \begin{itemize}
         \item Low-level function calls
         \item Explicit management required
-        \item Usually considered harder than \textit{OpenMP}
+        \item Usually \alert{considered harder} than \textit{OpenMP}
     \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
+    \frametitle{Programming Assignments: Computing the Mandelbrot Set}
     \begin{columns}[T,onlytextwidth]
-    \frametitle{Assignments: The Mandelbrot Set}
         \column{0.4\textwidth}
         \begin{center}
             \includegraphics[width=.76\textwidth]{mandelbrot-rotated}
@@ -240,11 +245,12 @@ for(x from 0 to x_max - 1) {
   /* Independent iterations */
   for(y from 0 to y_max - 1) {
     /* Independent iterations */
-    for (iteration from 0 to iteration_max,
+    for (iteration from 0 to
+         iteration_max,
          and f_c(z) < limit) {
-      /* Iterations depend on
-      previous values of z */
       z = f_c(z);
+      /* Iterations depend on
+         previous values of z */
     }
   }
 }
@@ -268,7 +274,7 @@ for(x from 0 to x_max - 1) {
 \begin{frame}
     \frametitle{Research Questions}
     In our first study, published at HICSS 2017, students helped us show that
-    OpenMP is not as easy as it appears.
+    \alert{OpenMP is not as easy as it appears}.
 
     \pause
 
@@ -286,7 +292,8 @@ for(x from 0 to x_max - 1) {
 
 \begin{frame}
     \frametitle{The Questionnaire}
-    Measure the students' subjective perceptions of each API:
+    Measure the students' \alert{subjective perceptions} of \textit{Pthreads}
+    and \textit{OpenMP}:
 
     \begin{itemize}
         \item Independently
@@ -295,12 +302,12 @@ for(x from 0 to x_max - 1) {
 
     \pause
 
-    We had approval from our University's Ethics Board, and consent from
-    individual students
+    \textit{We had approval from our University's Ethics Board, and consent
+    from individual students}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Independent Questions}
+    \frametitle{Independent Questions: RQ1 \& RQ2}
     \begin{columns}[T,onlytextwidth]
         \column{0.4\textwidth}
         \begin{table}
@@ -327,7 +334,7 @@ for(x from 0 to x_max - 1) {
 \end{frame}
 
 \begin{frame}
-    \frametitle{Comparison Questions}
+    \frametitle{Comparison Questions: RQ2 \& RQ3}
     \begin{columns}[T,onlytextwidth]
         \column{0.4\textwidth}
         \begin{table}
@@ -341,7 +348,7 @@ for(x from 0 to x_max - 1) {
                 \footnotesize{Was easier to use for parallelizing loops with independent iterations?} & $(10)$ \\ \addlinespace
                 \footnotesize{Was easier to use for parallelizing nested loops with independent iterations?} & $(11)$  \\ \addlinespace
                 \footnotesize{Was easier to use for improving the performance of a sequential program?} & $(12)$  \\ \addlinespace
-                \footnotesize{Had the best performance on your assignment?} & $(13)$ \\ \bottomrule
+                \footnotesize{\alert{Had the best performance on your assignment?}} & \alert{$(13)$} \\ \bottomrule
             \end{tabular}
         \end{table}
 
@@ -358,11 +365,11 @@ for(x from 0 to x_max - 1) {
     We conclude that:
 
     \begin{itemize}
-        \item The students' perceptions did not match the performance they
+        \item The \alert{students' perceptions did not match} the performance they
             achieved
         \item \textit{OpenMP} is still not as easy as it appears
-        \item Students are capable of achieving better performance with
-            lower-level parallel programming APIs
+        \item Students are capable of achieving \alert{better performance} with
+            \alert{lower-level} parallel programming APIs
     \end{itemize}
 \end{frame}
 
@@ -370,15 +377,17 @@ for(x from 0 to x_max - 1) {
 
 \begin{frame}
     \frametitle{Threats to Validity}
-    Threats to validity include:
+    \alert{Threats to validity} include:
 
     \begin{itemize}
-        \item Study performed in a single instance of the course
+        \item Study performed in a \alert{single instance of the course}
             \pause
-        \item No control group or separate groups
+        \item No \alert{control group} or separate groups
             \pause
-        \item Subjectivity of questionnaire and responses
+        \item \alert{Subjectivity} of questionnaire and responses
     \end{itemize}
+
+    \pause
 
     We will continue this research and seek to eliminate these threats
 \end{frame}
