@@ -59,7 +59,7 @@
 \graphicspath{{../img/}}
 
 \title{\textit{OpenMP} or \textit{Pthreads}: \\ Which is Better for Beginners?}
-\author{\footnotesize Pedro Bruel {\scriptsize (\emph{phrb@ime.usp.br})} \\
+\author{\footnotesize \textbf{Pedro Bruel} {\scriptsize (\textbf{\emph{phrb@ime.usp.br}})} \\
 \footnotesize Paulo Meirelles {\scriptsize (\emph{paulormm@ime.usp.br})} \\
 \footnotesize Raphael Cobe {\scriptsize (\emph{rmcobe@ncc.unesp.br})} \\
 \footnotesize Alfredo Goldman {\scriptsize (\emph{gold@ime.usp.br})}}
@@ -129,6 +129,8 @@
         \item More cousework for graduate students
     \end{itemize}
 
+    \pause
+
     The objective is to teach:
 
     \begin{itemize}
@@ -150,6 +152,8 @@
         \item Few non-brazilian students: Iran \& Latin America
     \end{itemize}
 
+    \pause
+
     With consent from the students, we
 
     \begin{itemize}
@@ -167,9 +171,11 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Student Background}
+    \frametitle{Students' Background}
     \begin{center}
         \includegraphics[width=0.78\columnwidth]{background_questions}
+
+        \emph{1: Do not know; 5: Expert}
     \end{center}
 \end{frame}
 
@@ -185,12 +191,16 @@
         \item Compare the performance of the three implementations
     \end{itemize}
 
+    \pause
+
     \textit{OpenMP}:
     \begin{itemize}
         \item Based on compiler directives
         \item No explicit management required
         \item Usually considered easier than \textit{Pthreads}
     \end{itemize}
+
+    \pause
 
     \textit{Pthreads}:
     \begin{itemize}
@@ -203,17 +213,17 @@
 \begin{frame}[fragile]
     \begin{columns}[T,onlytextwidth]
     \frametitle{Assignments: The Mandelbrot Set}
-        \column{0.6\textwidth}
-        \begin{center}
-            \includegraphics[width=.85\textwidth]{mandelbrot}
-        \end{center}
-
         \column{0.4\textwidth}
         \begin{center}
-            \begin{lstlisting}[language=C, basicstyle=\ttfamily\scriptsize, numbers=left,
+            \includegraphics[width=.76\textwidth]{mandelbrot-rotated}
+        \end{center}
+
+        \column{0.6\textwidth}
+        \begin{center}
+            \begin{lstlisting}[language=C, basicstyle=\ttfamily\normalsize, numbers=none,
                    frame=no, showspaces=false, showstringspaces=false,
                    numberstyle=\tiny,
-                   xleftmargin=0.5cm,
+                   xleftmargin=0.1cm,
                    keywords={%
                        DATATYPE, pthread_t, pthread_create,
                        pthread_join, task_function, NULL, int, main,
@@ -257,8 +267,10 @@ for(x from 0 to x_max - 1) {
 
 \begin{frame}
     \frametitle{Research Questions}
-    In our first study students helped us show that OpenMP is not as easy as it
-    appears.
+    In our first study, published at HICSS 2017, students helped us show that
+    OpenMP is not as easy as it appears.
+
+    \pause
 
     Now, we wanted to know:
 
@@ -281,6 +293,8 @@ for(x from 0 to x_max - 1) {
         \item Relative to each other
     \end{itemize}
 
+    \pause
+
     We had approval from our University's Ethics Board, and consent from
     individual students
 \end{frame}
@@ -291,17 +305,15 @@ for(x from 0 to x_max - 1) {
         \column{0.4\textwidth}
         \begin{table}
             \centering
-            \begin{tabular}{@{}p{0.7\columnwidth}p{0.1\columnwidth}p{0.05\columnwidth}@{}}
+            \begin{tabular}{@{}p{0.65\columnwidth}p{0.18\columnwidth}p{0.05\columnwidth}@{}}
                 \toprule
-                \multicolumn{2}{c}{\scriptsize{It is easy to$\dots$}} & \textnumero \\ \midrule
-                \multirow{2}{*}{\parbox{0.7\columnwidth}{\scriptsize{Parallelize loops with independent iterations using:}}} & \scriptsize{OpenMP} & $(1)$ \\
-                & \scriptsize{Pthreads} & $(2)$ \\
-                \addlinespace{}
-                \multirow{2}{*}{\parbox{0.7\columnwidth}{\scriptsize{Parallelize nested loops with independent iterations using:}}} & \scriptsize{OpenMP} & $(3)$ \\
-                &  \scriptsize{Pthreads} & $(4)$ \\
-                \addlinespace{}
-                \multirow{2}{*}{\parbox{0.7\columnwidth}{\scriptsize{Improve the performance of sequential code using:}}} & \scriptsize{OpenMP} & $(5)$  \\
-                &  \scriptsize{Pthreads} & $(6)$ \\ \bottomrule
+                \multicolumn{2}{c}{\normalsize{It is easy to$\dots$}} & \textnumero \\ \midrule
+                \multirow{2}{*}{\parbox{0.7\columnwidth}{\normalsize{Parallelize loops with independent iterations using:}}} & \normalsize{OpenMP} & $(1)$ \\
+                & \normalsize{Pthreads} & $(2)$ \\ \addlinespace \addlinespace
+                \multirow{2}{*}{\parbox{0.7\columnwidth}{\normalsize{Parallelize nested loops with independent iterations using:}}} & \normalsize{OpenMP} & $(3)$ \\
+                &  \normalsize{Pthreads} & $(4)$ \\ \addlinespace \addlinespace \addlinespace
+                \multirow{2}{*}{\parbox{0.7\columnwidth}{\normalsize{Improve the performance of sequential code using:}}} & \normalsize{OpenMP} & $(5)$  \\
+                &  \normalsize{Pthreads} & $(6)$ \\ \bottomrule
             \end{tabular}
         \end{table}
 
@@ -320,18 +332,19 @@ for(x from 0 to x_max - 1) {
             \centering
             \begin{tabular}{@{}p{0.9\columnwidth}p{0.08\columnwidth}@{}}
                 \toprule
-                \multicolumn{1}{c}{\scriptsize{Which technology$\dots$}} & \textnumero \\ \midrule
-                \scriptsize{Was more difficult to learn?} & $(7)$ \\
-                \scriptsize{Was simpler to use?} & $(8)$ \\
-                \scriptsize{Was easier to use?} & $(9)$ \\
-                \scriptsize{Was easier to use for parallelizing loops with independent iterations?} & $(10)$ \\
-                \scriptsize{Was easier to use for parallelizing nested loops with independent iterations?} & $(11)$  \\
-                \scriptsize{Was easier to use for improving the performance of a sequential program?} & $(12)$  \\
-                \scriptsize{Had the best performance on your assignment?} & $(13)$ \\ \bottomrule
+                \multicolumn{1}{c}{\footnotesize{Which technology$\dots$}} & \textnumero \\ \midrule
+                \footnotesize{Was more difficult to learn?} & $(7)$ \\ \addlinespace
+                \footnotesize{Was simpler to use?} & $(8)$ \\ \addlinespace
+                \footnotesize{Was easier to use?} & $(9)$ \\ \addlinespace
+                \footnotesize{Was easier to use for parallelizing loops with independent iterations?} & $(10)$ \\ \addlinespace
+                \footnotesize{Was easier to use for parallelizing nested loops with independent iterations?} & $(11)$  \\ \addlinespace
+                \footnotesize{Was easier to use for improving the performance of a sequential program?} & $(12)$  \\ \addlinespace
+                \footnotesize{Had the best performance on your assignment?} & $(13)$ \\ \bottomrule
             \end{tabular}
         \end{table}
 
         \column{0.6\textwidth}
+        \vspace{1cm}
         \begin{center}
             \includegraphics[width=0.85\columnwidth]{comparisons}
         \end{center}
@@ -343,7 +356,8 @@ for(x from 0 to x_max - 1) {
     We conclude that:
 
     \begin{itemize}
-        \item The students' perceptions did not match their performance
+        \item The students' perceptions did not match the performance they
+            achieved
         \item \textit{OpenMP} is still not as easy as it appears
         \item Students are capable of achieving better performance with
             lower-level parallel programming APIs
@@ -358,7 +372,9 @@ for(x from 0 to x_max - 1) {
 
     \begin{itemize}
         \item Study performed in a single instance of the course
+            \pause
         \item No control group or separate groups
+            \pause
         \item Subjectivity of questionnaire and responses
     \end{itemize}
 
